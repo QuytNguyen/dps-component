@@ -1,0 +1,78 @@
+<style>
+	.dl-dropdown-tree-control {
+		width: 100%;
+	}
+
+		.dl-dropdown-tree-control .class-width {
+			width: 100%;
+		}
+
+		.dl-dropdown-tree-control .btn {
+			padding: 0 !important;
+		}
+
+		.dl-dropdown-tree-control .show {
+			display: flex !important;
+		}
+
+	.btn.dl-drop-tree-custom-css.dropdown-toggle::after {
+		right: 0px !important;
+		margin-top: -5.5px !important;
+		color: rgba(0, 0, 0, 0.54);
+	}
+
+	.dropdown-tree {
+		overflow: auto;
+		height: 250px;
+		overflow-y: auto;
+		width: 100%;
+	}
+</style>
+<div ngbDropdown class="dl-dropdown-tree-control d-inline-block class-width dropup">
+	<button data-boundary="window" class="btn btn-outline-primary dl-drop-tree-custom-css " id="dropdownForm" ngbDropdownToggle [disabled]="disabled">
+		<mat-form-field class="mat-form-field-fluid" [ngClass]="{'mat-form-field-should-float ': valid,'mat-focused': focus}">
+			<input matInput class="input-tree" [value]="selectedNode[FieldTitle] ? selectedNode[FieldTitle]: ''" [disabled]="disabled" placeholder="{{DropdownTitle}}" [formControl]="dropdowntreeControl" (focus)="focusFunction()" (focusout)="focusOutFunction()" readonly>
+			<i class="fa fa-times drp-clear" aria-hidden="true" (click)="ClearData($event)" *ngIf="!disabled"></i>
+			<mat-error *ngIf="dropdowntreeControl.hasError('required')&&!disabled">
+				{{DropdownTitle}} <strong>bắt buộc nhập</strong>
+			</mat-error>
+		</mat-form-field>
+	</button>
+	<div ngbDropdownMenu aria-labelledby="dropdownForm" class="dl-drop-menu-tree">
+		<cdk-tree [dataSource]="dataSource" [treeControl]="treeControl" class="dl-tree-dropdown dropdown-tree">
+			<!-- This is the tree node template for leaf nodes -->
+			<cdk-nested-tree-node *cdkTreeNodeDef="let node" class="example-tree-node">
+				<!-- use a disabled button to provide padding for tree leaf -->
+				<div class="dl-cover-tree-node" (click)="SelectItemTree(node)" [ngClass]="{'active': selectedNode[FieldId]==node[FieldId]}">
+					<!-- <button mat-icon-button>
+											<mat-icon class="dl-leaf-icon mat-icon material-icons">
+											</mat-icon>
+										</button> -->
+					<div class="dl-name-node">
+						<div class="name-txt" ngbDropdownItem><span style="padding-left: 5px;">{{node[FieldTitle]}}</span></div>
+					</div>
+				</div>
+			</cdk-nested-tree-node>
+			<!-- This is the tree node template for expandable nodes -->
+			<cdk-nested-tree-node *cdkTreeNodeDef="let node; when: hasChild" class="example-tree-node">
+				<div class="dl-cover-tree-node " (click)="SelectItemTree(node)" [ngClass]="{'active': selectedNode[FieldId]==node[FieldId]}">
+					<div class="dl-name-node">
+						<div class="name-txt">
+							<button mat-icon-button [attr.aria-label]="'toggle ' + node.Title" cdkTreeNodeToggle>
+								<!-- <mat-icon class="dl-leaf-node mat-icon material-icons">
+									  {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+									</mat-icon> -->
+								<img src="/assets/images/_plus.png" *ngIf="!treeControl.isExpanded(node)">
+								<img src="/assets/images/_sub.png" *ngIf="treeControl.isExpanded(node)">
+							</button>
+							<span style="padding-left: 5px;" ngbDropdownItem>{{node[FieldTitle]}}</span>
+						</div>
+					</div>
+				</div>
+				<div [class.example-tree-invisible]="!treeControl.isExpanded(node)" class="dl-out-let">
+					<ng-container cdkTreeNodeOutlet></ng-container>
+				</div>
+			</cdk-nested-tree-node>
+		</cdk-tree>
+	</div>
+</div>

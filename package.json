@@ -1,0 +1,36 @@
+{
+  "name": "dps-component",
+  "version": "1.0.0",
+  "description": "component dung chung",
+  "main": "index.js",
+  "bin": {
+    "dps-component": "./index.js"
+  },
+  "scripts": {
+    "test": "let message = 'Hello World!';console.log(message)"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QuytNguyen/dps-component.git"
+  },
+  "keywords": [
+    "dropdowntree",
+    "imagecontrol"
+  ],
+  "author": "DPS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/QuytNguyen/dps-component/issues"
+  },
+  "homepage": "https://github.com/QuytNguyen/dps-component#readme",
+  "dependencies": {
+    "create-new-project": "^0.1.0",
+    "@angular/cdk": "^8.0.1",
+    "@angular/common": "^8.2.14",
+    "@angular/compiler": "^8.2.14",
+    "@angular/core": "^8.2.14",
+    "@angular/forms": "^8.2.14",
+    "@ng-bootstrap/ng-bootstrap": "^4.2.1",
+    "ng2-file-upload": "^1.3.0"
+  }
+}

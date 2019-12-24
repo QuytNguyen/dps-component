@@ -1,0 +1,1 @@
+let name = process.argv[2];let message = `Hello ${name}`;console.log(message)
